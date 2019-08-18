@@ -108,20 +108,6 @@ def printit():
   
   print 'activeUsers: ' + activeUsers
 
-  if activeUsers == '0':
-    requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":false}')
-  else:
-    if activeUsers == '1' or activeUsers == '2':
-      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"hue":8597,"sat":121,"bri":50}')
-    if activeUsers == '3' or activeUsers == '4':
-      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"hue":8597,"sat":121, "bri":100}')
-    if activeUsers == '5' or activeUsers == '6':
-      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"hue":8597,"sat":121,"bri":150}')
-    if activeUsers == '7' or activeUsers == '8':
-      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"hue":8597,"sat":121,"bri":200}')
-    if activeUsers != '0' and activeUsers != '1' and activeUsers != '2' and activeUsers != '3' and activeUsers != '4' and activeUsers != '5' and activeUsers != '6' and activeUsers != '7' and activeUsers != '8':
-      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"hue":8597,"sat":121,"bri":254}')
-
     # Editor
     response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs_2))  
     response.raise_for_status()
@@ -189,6 +175,22 @@ def printit():
     # Default color
     if editorAction == '0' and AddtoCartAction == '0' and checkoutAction == '0' and paymentAction == '0' and orderAction == '0':
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"hue":8597,"sat":121}') 
+
+    
+    if activeUsers == '0':
+      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":false}')
+    else:
+      if activeUsers == '1' or activeUsers == '2':
+        requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":50}')
+      if activeUsers == '3' or activeUsers == '4':
+        requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":100}')
+      if activeUsers == '5' or activeUsers == '6':
+        requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":150}')
+      if activeUsers == '7' or activeUsers == '8':
+        requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":200}')
+      if activeUsers != '0' and activeUsers != '1' and activeUsers != '2' and activeUsers != '3' and activeUsers != '4' and activeUsers != '5' and activeUsers != '6' and activeUsers != '7' and activeUsers != '8':
+        requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":254}')
+
 
 getToken()
 printit()
