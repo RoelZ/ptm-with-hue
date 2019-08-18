@@ -30,8 +30,10 @@ credentials = ServiceAccountCredentials.from_json_keyfile_dict({
 }, scopes=['https://www.googleapis.com/auth/analytics.readonly'])
 
 # Create requests session object (avoids need to pass in headers with every request)
-session = requests.Session()
-session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
+def getToken():
+  session = requests.Session()
+  session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
+
 
 # Enjoy!
 url_kwargs = {
@@ -72,20 +74,20 @@ url_kwargs_6 = {
     'get_args': 'metrics=rt:activeUsers&dimensions=rt:goalid&filters=rt:goalid==6'  # https://developers.google.com/analytics/devguides/reporting/realtime/v3/reference/data/realtime/get
 }
 
-class StoppableThread(threading.Thread):
-   def __init__(self):
-	super(StoppableThread, self).__init__()
-	self._stop_event = threading.Event()
+# class StoppableThread(threading.Thread):
+#    def __init__(self):
+# 	super(StoppableThread, self).__init__()
+# 	self._stop_event = threading.Event()
 
-   def stop(self):
-	self._stop_event.set()
+#    def stop(self):
+# 	self._stop_event.set()
 
-   def stopped(self):
-	return self._stop_event.is_set()
+#    def stopped(self):
+# 	return self._stop_event.is_set()
 
 
 def printit():
-  threading.Timer(30, printit).start()
+  threading.Timer(15, printit).start()
   response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
   response.raise_for_status()
 
@@ -181,12 +183,5 @@ def printit():
     if editorAction == '0' and AddtoCartAction == '0' and checkoutAction == '0' and paymentAction == '0' and orderAction == '0':
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"hue":8597,"sat":121}') 
 
-
-#arguments = cgi.FieldStorage()
-#for i in arguments.keys():
-# print arguments[i].value
-
-# if int(sys.argv[1]) == 1:
-  printit()
-# else:
-#   stop()
+getToken()
+printit()
