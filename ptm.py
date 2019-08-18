@@ -93,11 +93,10 @@ url_kwargs_6 = {
 def printit():  
     
   threading.Timer(15, printit).start()
-  
-  response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
-  response.raise_for_status()
 
-  if response.status_code != 200:
+  response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
+
+  if response.status_code != 200 || response.raise_for_status(): 
     getToken()
 
   # print response.raise_for_status()  
