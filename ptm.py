@@ -16,9 +16,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 #cgitb.enable()
 
-credentials = "global"
-session = "global"
-
 credentials = ServiceAccountCredentials.from_json_keyfile_dict({
   "type": "service_account",
   "project_id": "realtime-analytics-224018",
@@ -33,9 +30,12 @@ credentials = ServiceAccountCredentials.from_json_keyfile_dict({
 }, scopes=['https://www.googleapis.com/auth/analytics.readonly'])
 
 # Create requests session object (avoids need to pass in headers with every request)
+session = requests.Session()
+session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
+
 def getToken():
-  session = requests.Session()
-  session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
+  global session = requests.Session()
+  global session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
 
 
 # Enjoy!
