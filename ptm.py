@@ -174,7 +174,7 @@ def printit():
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"sat":254,"hue":46920}')   # blauw
 
     if orderAction != '0':
-      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"sat":254,"hue":0}')       # rood 0
+      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"sat":254,"hue":0}')       # rood
 
 
     # Default color
@@ -185,7 +185,8 @@ def printit():
 #arguments = cgi.FieldStorage()
 #for i in arguments.keys():
 # print arguments[i].value
-if int(sys.argv[1]) == 1:
-  printit()
-else:
-  stop()
+
+# if int(sys.argv[1]) == 1:
+#   printit()
+# else:
+#   stop()
