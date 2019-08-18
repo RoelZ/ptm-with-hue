@@ -187,6 +187,6 @@ def printit():
 # print arguments[i].value
 
 # if int(sys.argv[1]) == 1:
-#   printit()
+  printit()
 # else:
 #   stop()
