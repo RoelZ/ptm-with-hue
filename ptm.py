@@ -91,11 +91,14 @@ url_kwargs_6 = {
 
 
 def printit():
+  
   threading.Timer(15, printit).start()
   response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
   response.raise_for_status()
 
-  print response.raise_for_status()  
+
+  # print response.raise_for_status()  
+  print response.status_code
 
   result = response.json() 
   print result
