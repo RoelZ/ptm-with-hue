@@ -16,6 +16,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 #cgitb.enable()
 
+credentials = "global"
+session = "global"
+
 credentials = ServiceAccountCredentials.from_json_keyfile_dict({
   "type": "service_account",
   "project_id": "realtime-analytics-224018",
