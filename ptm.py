@@ -34,8 +34,9 @@ session = requests.Session()
 session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
 
 def getToken():
-  global session = requests.Session()
-  global session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
+  global session 
+  session = requests.Session()
+  session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
 
 
 # Enjoy!
