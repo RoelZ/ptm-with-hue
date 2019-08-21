@@ -90,10 +90,19 @@ url_kwargs_6 = {
 #    def stopped(self):
 # 	return self._stop_event.is_set()
 
+def tijdCheck():
+  datum = datetime.datetime.today()
+  dag = datetime.datetime.today().weekday()
+  if dag<5:
+    # door de weekse dag
+    if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
+      printit()
+  else:
+    # weekend
+    if (datum.hour>9 and datum.hour<23):
+      printit()
 
 def printit():  
-    
-  threading.Timer(15, printit).start()
 
   response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
 
@@ -195,4 +204,4 @@ def printit():
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":254}')
 
 getToken()
-printit()
+threading.Timer(15, tijdCheck).start()
