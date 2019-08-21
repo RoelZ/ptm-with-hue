@@ -91,7 +91,7 @@ url_kwargs_6 = {
 # 	return self._stop_event.is_set()
 
 def tijdCheck():
-  datum = datetime.date.today()
+  datum = datetime.time.today()
   dag = datetime.date.today().weekday()
   if dag<5:
     # door de weekse dag
