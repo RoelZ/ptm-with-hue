@@ -12,6 +12,7 @@ import httplib2
 import json
 import requests
 import threading 
+from datetime import datatime
 from oauth2client.service_account import ServiceAccountCredentials
 
 #cgitb.enable()
@@ -89,10 +90,21 @@ url_kwargs_6 = {
 #    def stopped(self):
 # 	return self._stop_event.is_set()
 
+def tijdCheck():
+  datum = datetime.datetime.today()
+  dag = datetime.datetime.today().weekday()
+  if dag<5:
+    # door de weekse dag
+    if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
+      printit()
+  else:
+    # weekend
+    if (datum.hour>9 and datum.hour<23):
+      printit()
+
+ 
 
 def printit():  
-    
-  threading.Timer(15, printit).start()
 
   response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
 
@@ -100,15 +112,15 @@ def printit():
     getToken()
 
   # print response.raise_for_status()  
-  print response.status_code
+  print(response.status_code)
 
   result = response.json() 
-  print result
+  print(result)
 
   activeUsers = result['totalsForAllResults']['rt:activeUsers']
   hueIP = '192.168.86.41'
   
-  print 'activeUsers: ' + activeUsers
+  print('activeUsers: ' + activeUsers)
 
   if activeUsers == '0':
     requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":false}')
@@ -119,7 +131,7 @@ def printit():
     result = response.json()   
     editorAction = result['totalsForAllResults']['rt:activeUsers']
 
-    print 'editorAction: ' + editorAction
+    print('editorAction: ' + editorAction)
   
     # Add to Cart  
     response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs_3))  
@@ -127,7 +139,7 @@ def printit():
     result = response.json()   
     AddtoCartAction = result['totalsForAllResults']['rt:activeUsers']
 
-    print 'AddtoCartAction: ' + AddtoCartAction
+    print('AddtoCartAction: ' + AddtoCartAction)
 
     # Checkout  
     response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs_5))  
@@ -135,7 +147,7 @@ def printit():
     result = response.json()   
     checkoutAction = result['totalsForAllResults']['rt:activeUsers']
 
-    print 'checkoutAction: ' + checkoutAction
+    print('checkoutAction: ' + checkoutAction)
 
     # Payment
     response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs_6))  
@@ -143,7 +155,7 @@ def printit():
     result = response.json()   
     paymentAction = result['totalsForAllResults']['rt:activeUsers']
 
-    print 'paymentAction: ' + paymentAction
+    print('paymentAction: ' + paymentAction)
 
     # Order  
     response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs_4))  
@@ -151,7 +163,7 @@ def printit():
     result = response.json()   
     orderAction = result['totalsForAllResults']['rt:activeUsers']
   
-    print 'orderAction: ' + orderAction
+    print('orderAction: ' + orderAction)
 
 # groen: 25500
 # blauw: 46920
@@ -194,4 +206,5 @@ def printit():
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":254}')
 
 getToken()
-printit()
+threading.Timer(15, tijdCheck).start()
+
