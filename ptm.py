@@ -12,7 +12,7 @@ import httplib2
 import json
 import requests
 import threading 
-from datetime import datetime
+
 from oauth2client.service_account import ServiceAccountCredentials
 
 #cgitb.enable()
@@ -90,17 +90,6 @@ url_kwargs_6 = {
 #    def stopped(self):
 # 	return self._stop_event.is_set()
 
-def tijdCheck():
-  datum = datetime.datetime.today()
-  dag = datetime.datetime.today().weekday()
-  if dag<5:
-    # door de weekse dag
-    if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
-      printit()
-  else:
-    # weekend
-    if (datum.hour>9 and datum.hour<23):
-      printit()
 
  
 
@@ -206,5 +195,5 @@ def printit():
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":254}')
 
 getToken()
-threading.Timer(15, tijdCheck).start()
+threading.Timer(15, printit.start()
 
