@@ -12,7 +12,7 @@ import httplib2
 import json
 import requests
 import threading
-from datetime import datetime
+import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
 #cgitb.enable()
@@ -91,8 +91,8 @@ url_kwargs_6 = {
 # 	return self._stop_event.is_set()
 
 def tijdCheck():
-  datum = datetime.datetime.today()
-  dag = datetime.datetime.today().weekday()
+  datum = datetime.date.today()
+  dag = datetime.date.today().weekday()
   if dag<5:
     # door de weekse dag
     if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
