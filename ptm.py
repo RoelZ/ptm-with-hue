@@ -195,5 +195,5 @@ def printit():
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":254}')
 
 getToken()
-threading.Timer(15, printit.start()
+threading.Timer(15, printit.start())
 
