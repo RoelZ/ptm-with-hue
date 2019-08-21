@@ -17,18 +17,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 #cgitb.enable()
 
-credentials = ServiceAccountCredentials.from_json_keyfile_dict({
-  "type": "service_account",
-  "project_id": "realtime-analytics-224018",
-  "private_key_id": "fa58579719a2d0a3c1171bcbeb47fe77f33c6c7d",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCeY5O6WvFMyppS\nWFoHitFi2DysoAsBsewP672LBi2tM4CuEyb+06u3EAfFbybRqk9HIgOAdiiTytUq\nfl0gbc7hW+UqNUDeu9BEAyakdO8sNuHmoMahtgK2MggXplMVsKe8f1+2TddXPJP5\n36D+gJsEDCJUg35L8q343qcZSxNB1BGqux8n+aI0Big7dRF0LjQEcyfYMiLdWItO\nJ2q9gXJWo4q96xMoxeaKboea05ASOivp6P364jNatFgIX2X8fUbhkZ6UznxlJ7G0\nxF5TVoR00evJQYfCzpJSy4V1shTBas/vBkOX60xg3Q/aetD7fFlUtBpx7PIXRxK5\nwNKBc3QtAgMBAAECggEABebb+FOvLhdWjL7yC9nmV3KLQDtubY+9phI4q9d9GDkV\nEGdySoiEm3ujbn3nymQ4NARWcRD2Dhu+uaifu7ebv9X2wg3d7u68oewkInig+NrK\nrBdNj3UCwNs4Zfkym1pLxcBRRq+72GpPcT4d952/KPVyygdkS1wtk1poi466lvdK\n8P8hhn0WmCx2OWJjYfTIPABf18MvEKzONS5K73j2KZYrZSyKrFPwpEv5TsnfirF8\nNrwIyMeY/jZJJrvaz5/7NVKEDcUJfM41XejSvO55eHvIH9/vhMzDi1Vc2Xs56EUs\nXWkI+3YnLHCUtDIqpkYvK4EYw3v6Ot9KMpQS6IbewQKBgQDVgMgEGvSDc4fIOoRT\nS7MzMfeZQyi/9QU87TH8fo+YR0VIDDNuuqxsF4WMTkLO/9ZIfiwDAUMpVc48D0yc\nqaG6rB3OgbrFmQLA6r9i4G38jOzvRDQ1YVD9cFQDkh5bNM0sTvqRevmc4kWn4kTq\nBD8fW/K/q/P5J32xWsIoZuAVWQKBgQC96mnuOPwzYFtRwzwkOn6MKq/9RUGzA5hn\nHtytls4JmKnYrEXPh51BZTelrRjKqDFDojmSRG5rvhuj8Cl6VbW4hV0GWP2RSLd6\nUQX2cVBFwty+6hqYHzUAbqMZLZSgpuuRUr4ULxDb4ZQkKqX74tB4EKEJyDN/qWPK\nbTk272h29QKBgCDUDW08K86ui/lIriIUqLg9faHORszFQwnsOtxlJXU3uDpszde/\n0lVIhJtfSTyE8BDzfZb0sbwAWpa3j4MjPh/y6R5gqjRJ47eAIO92LNNBZAkiRpjS\nnt5pUDHAXPSPOOEQP8zwyMLLtAQtcYU+I+qRe9DnAruTy+riVqpZryj5AoGBAIXw\n5qbxn8VoRt+Cb08pxgh7LsXUa4KinYDU/lSbUFLqTZeX4GB+R8VQao+5Zgu/1Yba\nyfnDs5DfckUL42T5QAGUZUhNyQAHJgfpTuhBgJjC1sb6+qihEdNtNDBUukcXknpa\nvd4kV6KMFNvxDEF69QZIzBrHDLMTt2KT5887yBRlAoGAAcipRc03kU9Y7OVimV80\n0PLzFhsgCZwmJZL7leHO9q13O1D9AGMVuq4l6CSPfJoqyZLIKinIEoAbWr9OaYf1\nEBclACW/aayzP+GIMBTIPuqkbrjroGuJFTz6peRg40ssON5evYWD/aUpJhLE9EiR\n7sFUu/YBHFTSmvAjbJy7b7s=\n-----END PRIVATE KEY-----\n",
-  "client_email": "ptm-hue@realtime-analytics-224018.iam.gserviceaccount.com",
-  "client_id": "112492768590743802019",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ptm-hue@realtime-analytics-224018.iam.gserviceaccount.com"
-}, scopes=['https://www.googleapis.com/auth/analytics.readonly'])
+with open('credentials.json') as f:
+    data = json.load(f)
+
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(data, scopes=['https://www.googleapis.com/auth/analytics.readonly'])
 
 # Create requests session object (avoids need to pass in headers with every request)
 session = requests.Session()
@@ -103,6 +95,8 @@ def tijdCheck():
       printit()
 
 def printit():  
+
+  threading.Timer(15, tijdCheck).start()
 
   response = session.get('https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:{view_id}&{get_args}'.format(**url_kwargs))
 
@@ -204,4 +198,5 @@ def printit():
       requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":true,"bri":254}')
 
 getToken()
-threading.Timer(15, tijdCheck).start()
+printit()
+# threading.Timer(15, tijdCheck).start()
