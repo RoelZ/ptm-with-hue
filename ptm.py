@@ -86,17 +86,18 @@ def tijdCheck():
   datum = datetime.datetime.now()
   dag = datetime.date.today().weekday()
   print datum
-  
+
+  # let op dat de tijd 2 uur achterloopt op de raspberry pi
   if dag<5:
     # door de weekse dag
-    if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
+    if (datum.hour>5 and datum.hour<7 or datum.hour>15 and datum.hour<19):
       printit()
       print 'doordeweeksedag actief '
     else:
       print 'doordeweeksedag inactief '
   else: 
     # weekend
-    if (datum.hour>9 and datum.hour<23):
+    if (datum.hour>7 and datum.hour<21):
       printit()
       print 'weekend actief '
     else:
