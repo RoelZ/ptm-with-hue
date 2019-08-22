@@ -89,10 +89,12 @@ def tijdCheck():
     # door de weekse dag
     if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
       printit()
+      print datum.hour
   else:
     # weekend
     if (datum.hour>9 and datum.hour<23):
       printit()
+      print datum.hour
 
 def printit():  
 
