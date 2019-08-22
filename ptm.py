@@ -89,16 +89,16 @@ def tijdCheck():
     # door de weekse dag
     if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
       printit()
-      print 'doordeweeksedag actief '+datum.hour+datum.minute
+      print 'doordeweeksedag actief ' + datum.hour datum.minute
     else:
-      'doordeweeksedag inactief '+datum.hour+datum.minute
+      'doordeweeksedag inactief ' + datum.hour datum.minute
   else: 
     # weekend
     if (datum.hour>9 and datum.hour<23):
       printit()
-      print 'weekend actief '+datum.hour+datum.minute
+      print 'weekend actief ' + datum.hour datum.minute
     else:
-      'weekend inactief '+datum.hour+datum.minute
+      'weekend inactief ' + datum.hour datum.minute
 
 def printit():  
 
