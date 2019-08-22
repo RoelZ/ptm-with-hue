@@ -23,8 +23,8 @@ with open('credentials.json') as f:
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(data, scopes=['https://www.googleapis.com/auth/analytics.readonly'])
 
 # Create requests session object (avoids need to pass in headers with every request)
-session = requests.Session()
-session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
+# session = requests.Session()
+# session.headers= {'Authorization': 'Bearer ' + credentials.get_access_token().access_token}
 
 def getToken():
   global session 
@@ -90,7 +90,7 @@ def tijdCheck():
   # let op dat de tijd 2 uur achterloopt op de raspberry pi
   if dag<5:
     # door de weekse dag
-    if (datum.minute>18 and datum.minute<20 or datum.hour>15 and datum.hour<19):
+    if (datum.hour>15 and datum.hour<21 or datum.hour>15 and datum.hour<19):
       printit()
       print 'doordeweeksedag actief '
     else:
@@ -123,8 +123,9 @@ def printit():
   print result
 
   activeUsers = result['totalsForAllResults']['rt:activeUsers']
-  hueIP = '192.168.86.41'
+  
   global hueIP
+  hueIP = '192.168.86.41'
   
   print 'activeUsers: ' + activeUsers
 
