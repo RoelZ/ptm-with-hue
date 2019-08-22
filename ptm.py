@@ -94,6 +94,7 @@ def tijdCheck():
       printit()
       print 'doordeweeksedag actief '
     else:
+      threading.Timer(15, tijdCheck).start()
       print 'doordeweeksedag inactief '
   else: 
     # weekend
@@ -101,6 +102,7 @@ def tijdCheck():
       printit()
       print 'weekend actief '
     else:
+      threading.Timer(15, tijdCheck).start()
       print 'weekend inactief '
 
 def printit():  
