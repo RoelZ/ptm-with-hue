@@ -85,20 +85,22 @@ url_kwargs_6 = {
 def tijdCheck():
   datum = datetime.datetime.now()
   dag = datetime.date.today().weekday()
+  print datum
+  
   if dag<5:
     # door de weekse dag
     if (datum.hour>7 and datum.hour<9 or datum.hour>17 and datum.hour<23):
       printit()
-      print 'doordeweeksedag actief ' + datum
+      print 'doordeweeksedag actief '
     else:
-      print 'doordeweeksedag inactief ' + datum
+      print 'doordeweeksedag inactief '
   else: 
     # weekend
     if (datum.hour>9 and datum.hour<23):
       printit()
-      print 'weekend actief ' + datum
+      print 'weekend actief '
     else:
-      print 'weekend inactief ' + datum
+      print 'weekend inactief '
 
 def printit():  
 
