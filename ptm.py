@@ -90,10 +90,11 @@ def tijdCheck():
   # let op dat de tijd 2 uur achterloopt op de raspberry pi
   if dag<5:
     # door de weekse dag
-    if (datum.hour>5 and datum.hour<7 or datum.hour>15 and datum.hour<19):
+    if (datum.minute>16 and datum.minute<19 or datum.hour>15 and datum.hour<19):
       printit()
       print 'doordeweeksedag actief '
     else:
+      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":false}')
       threading.Timer(15, tijdCheck).start()
       print 'doordeweeksedag inactief '
   else: 
@@ -102,6 +103,7 @@ def tijdCheck():
       printit()
       print 'weekend actief '
     else:
+      requests.put('http://'+hueIP+'/api/f2u4vQ3e-79Zh8iYoUJthdGBmmGeMG2B98fmKXx7/lights/4/state', data='{"on":false}')
       threading.Timer(15, tijdCheck).start()
       print 'weekend inactief '
 
@@ -121,7 +123,7 @@ def printit():
   print result
 
   activeUsers = result['totalsForAllResults']['rt:activeUsers']
-  hueIP = '192.168.86.41'
+  global hueIP = '192.168.86.41'
   
   print 'activeUsers: ' + activeUsers
 
