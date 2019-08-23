@@ -88,7 +88,7 @@ def tijdCheck():
   print datum
 
   # let op dat de tijd 2 uur achterloopt op de raspberry pi
-  if dag<5:
+  if dag<4:
     # door de weekse dag
     if (datum.hour>4 and datum.hour<7 or datum.hour>15 and datum.hour<19):
       printit()
